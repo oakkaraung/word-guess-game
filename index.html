@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Psychic Game</title>
+</head>
+
+<h1>
+    Psychic Game
+</h1>
+<h2>
+    Guess what letter I'm thinking of
+</h2>
+<p id="wins1">
+    Wins: 0
+</p>
+<p id="losses1">
+    Losses: 0
+</p>
+<p id="guesses1">
+    Guesses Left: 10
+</p>
+<p id="letterGuess">
+    Your Guesses So Far: 
+</p>
+<script>
+    var currWins = document.getElementById("wins1");
+    var currLosses = document.getElementById("losses1");
+    var currGuesses = document.getElementById("guesses1");
+    var currLetters = document.getElementById("letterGuess");
+
+    var winNum = 0;
+    var lossNum = 0;
+    var guessNum = 10;
+    var counter = 0;
+
+    var guessedLetters = ["","","","","","","","","",""]
+
+    var possLetters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    var compLetter = possLetters[Math.floor(Math.random() * possLetters.length)];
+
+    document.onkeyup = function (event) {
+
+        var userInput = event.key;
+        guessedLetters[counter] = userInput;
+
+        if (userInput === compLetter) {
+            alert("Good Job!");
+            winNum++;
+            guessNum = 10;
+            currWins.textContent = "Wins: " + winNum;
+            currGuesses.textContent = "Guesses Left: " + guessNum;
+            compLetter1 = possLetters[Math.floor(Math.random() * possLetters.length)];
+            while (compLetter === compLetter1) {
+                compLetter1 = possLetters[Math.floor(Math.random() * possLetters.length)];
+            }
+            compLetter = compLetter1;
+            counter = 0;
+            guessedLetters = ["","","","","","","","","",""]
+            currLetters.textContent = "Your Guesses So Far: " + guessedLetters;
+        }
+
+        else {
+            guessNum = guessNum - 1;
+            currGuesses.textContent = "Guesses Left: " + guessNum;
+            if (guessNum === 0) {
+                alert("You lost this round :(")
+                lossNum++;
+                guessNum = 10;
+                currLosses.textContent = "Losses: " + lossNum;
+                currGuesses.textContent = "Guesses Left: " + guessNum;
+                compLetter1 = possLetters[Math.floor(Math.random() * possLetters.length)];
+                while (compLetter === compLetter1) {
+                    compLetter1 = possLetters[Math.floor(Math.random() * possLetters.length)];
+                }
+                compLetter = compLetter1;
+                counter = -1;
+                guessedLetters = ["","","","","","","","","",""]
+                currLetters.textContent = "Your Guesses So Far: " + guessedLetters;
+            }
+            currLetters.textContent = "Your Guesses So Far: " + guessedLetters;
+            counter++;
+        }
+    };
+</script>
+</body>
+</html>
